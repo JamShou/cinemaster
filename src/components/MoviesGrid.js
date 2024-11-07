@@ -15,6 +15,7 @@ const fetchData = async (url) => {
 export default function MoviesGrid() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null); // New state for the selected movie
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   if (!API_KEY) {
@@ -42,16 +43,31 @@ export default function MoviesGrid() {
     return "Unknown";
   };
 
+  const handleCardClick = (movie) => {
+    // Toggle selection for the clicked movie
+    setSelectedMovie(
+      selectedMovie && selectedMovie.id === movie.id ? null : movie
+    );
+  };
+
   return (
     <div>
       {movies.length === 0 ? (
-        <p className="error-message">Check API Key: Movies could not be loaded</p>
+        <p className="error-message">
+          Check API Key: Movies could not be loaded
+        </p>
       ) : (
         <div className="movies-grid">
           {movies.map((movie) => (
-            <div key={movie.id} className="movie-card">
+            <div
+              key={movie.id}
+              className={`movie-card ${
+                selectedMovie && selectedMovie.id === movie.id ? "expanded" : ""
+              }`}
+              onClick={() => handleCardClick(movie)} // Handle the click to expand the card
+            >
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt={movie.title}
               />
               <div className="movie-card-info">
@@ -63,6 +79,23 @@ export default function MoviesGrid() {
                   {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
                 </p>
               </div>
+              {selectedMovie && selectedMovie.id === movie.id && (
+                <div className="expanded-card-overlay">
+                  <div><h2>{movie.title}</h2></div>
+                  <p>{movie.overview}</p>
+                  <button
+                    className="trailer-button"
+                    onClick={() =>
+                      window.open(
+                        `https://www.youtube.com/results?search_query=${movie.title}+trailer`,
+                        "_blank"
+                      )
+                    }
+                  >
+                    Click Here to see a trailer on YouTube!
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
