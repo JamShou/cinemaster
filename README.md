@@ -14,7 +14,7 @@ Welcome to **Moviedux** – This is a **movie browser app** where you can explor
 
 ## 🚀 Getting Started
 
-Prerequisite: Obtain an API Key From [TheMovieDB](https://www.themoviedb.org/settings/api).
+Prereq: Obtain an API Key From [TheMovieDB](https://www.themoviedb.org/settings/api).
 
 1. **Clone this repo**:
     ```bash
