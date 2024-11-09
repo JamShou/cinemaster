@@ -326,35 +326,50 @@ input:checked + .slider {
   background-image: url('https://image.tmdb.org/t/p/original${movie.backdrop_path}');
   background-size: cover;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.35); /* Darker overlay */
+  background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
   z-index: -1; /* Ensure the backdrop is behind the content */
 }
 
 
-
-
-/* Text styles */
-.expanded-card-overlay p {
-  white-space: pre-wrap; /* Ensures multi-line text wraps properly */
-  word-wrap: break-word; /* Break long words */
-  margin: 0;
-  padding: 0;
+.expanded-card-overlay h2 {
+  margin-top: 5px;
+  margin-bottom: 10px; /* Adds space between title and overview */
 }
 
-/* Styling the trailer button */
+.expanded-card-overlay p {
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  max-width: 80%; /* Optional: limits the width of the overview */
+  margin: 0 auto; /* Centers the overview text */
+  text-align: center; /* Ensures text is centered */
+  height: 100%; /* Ensures the paragraph takes up the full height */
+}
+
 .trailer-button {
   margin-top: auto; /* Pushes the button to the bottom */
-  background-color: #de0000; /* Orange button */
+  background-color: #ff0000; /* YouTube Red */
   color: white;
   border: none;
   padding: 12px 24px;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 30px; /* Rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .trailer-button:hover {
-  background-color: #b60101; /* Darker shade on hover */
+  background-color: #cc0000; /* Darker red on hover */
+  transform: scale(1.05); /* Slight scale animation */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
+
+
 

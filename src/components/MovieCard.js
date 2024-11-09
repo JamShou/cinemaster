@@ -1,5 +1,6 @@
 // MovieCard.js
 import React from "react";
+import ExpandedCard from "./ExpandedCard"; 
 
 const getGenreName = (genreIds, genres) => {
   if (genreIds.length > 0) {
@@ -28,30 +29,7 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
           {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
         </p>
       </div>
-      {isSelected && (
-        <div
-          className="expanded-card-overlay"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
-          }}
-        >
-          <div>
-            <h2>{movie.title}</h2>
-          </div>
-          <p>{movie.overview}</p>
-          <button
-            className="trailer-button"
-            onClick={() =>
-              window.open(
-                `https://www.youtube.com/results?search_query=${movie.title}+trailer`,
-                "_blank"
-              )
-            }
-          >
-            Click Here to find a trailer on YouTube
-          </button>
-        </div>
-      )}
+      {isSelected && <ExpandedCard movie={movie} />} {/* Render ExpandedCard here */}
     </div>
   );
 }
