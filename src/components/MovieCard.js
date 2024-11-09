@@ -29,7 +29,12 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
         </p>
       </div>
       {isSelected && (
-        <div className="expanded-card-overlay">
+        <div
+          className="expanded-card-overlay"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+          }}
+        >
           <div>
             <h2>{movie.title}</h2>
           </div>
@@ -43,7 +48,7 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
               )
             }
           >
-            Click Here to see a trailer on YouTube!
+            Click Here to find a trailer on YouTube
           </button>
         </div>
       )}

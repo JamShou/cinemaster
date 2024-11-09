@@ -296,22 +296,42 @@ input:checked + .slider {
 /* Overlay container for the overview text and button */
 .expanded-card-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   color: white;
   font-size: 1.2rem; /* Adjust text size as needed */
   line-height: 1.6;
   text-align: center;
-  max-width: 90%; /* Optional: ensures it doesn’t overflow */
-  max-height: 80%; /* Optional: ensures content stays within card's height */
-  overflow-y: auto; /* Allows scrolling if content overflows */
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Space between overview text and button */
-  height: 100%; /* Ensure content fills the card */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  overflow-y: auto; /* Allows scrolling if content overflows */
+  z-index: 1; /* Ensure the content is above the backdrop */
+  background-image: url('https://image.tmdb.org/t/p/original${movie.backdrop_path}');
+  background-size: cover;
+  background-position: center;
 }
+
+.expanded-card-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://image.tmdb.org/t/p/original${movie.backdrop_path}');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.35); /* Darker overlay */
+  z-index: -1; /* Ensure the backdrop is behind the content */
+}
+
+
+
 
 /* Text styles */
 .expanded-card-overlay p {
