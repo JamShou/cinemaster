@@ -18,6 +18,7 @@ export default function MoviesGrid() {
   const [genres, setGenres] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [page, setPage] = useState(1); // Track current page
+  const [searchTerm, setSearchTerm] = useState("");
 
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
   const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
@@ -51,36 +52,53 @@ export default function MoviesGrid() {
     if (page > 1) setPage((prevPage) => prevPage - 1); // Prevent going to page 0
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredMovies = movies.filter(movie => 
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-      {movies.length === 0 ? (
-        <p className="error-message">
-          Check API Key: Movies could not be loaded
-        </p>
-      ) : (
-        <>
-          <div className="movies-grid">
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                genres={genres}
-                isSelected={selectedMovie && selectedMovie.id === movie.id}
-                onClick={handleCardClick}
-              />
-            ))}
-          </div>
+      <input
+        type="text"
+        className="search-input"
+        placeholder="What do you want to watch?"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      <div>
+        {movies.length === 0 ? (
+          <p className="error-message">
+            Check API Key: Movies could not be loaded
+          </p>
+        ) : (
+          <>
+            <div className="movies-grid">
+              {filteredMovies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  genres={genres}
+                  isSelected={selectedMovie && selectedMovie.id === movie.id}
+                  onClick={handleCardClick}
+                />
+              ))}
+            </div>
 
-          {/* Pagination controls */}
-          <div className="pagination">
-            <button onClick={handlePrevPage} disabled={page === 1}>
-              Previous
-            </button>
-            <span>Page {page}</span>
-            <button onClick={handleNextPage}>Next</button>
-          </div>
-        </>
-      )}
+            {/* Pagination controls */}
+            <div className="pagination">
+              <button onClick={handlePrevPage} disabled={page === 1}>
+                Previous
+              </button>
+              <span>Page {page}</span>
+              <button onClick={handleNextPage}>Next</button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
