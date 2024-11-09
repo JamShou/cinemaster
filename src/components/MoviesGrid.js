@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MovieCard from "./MovieCard/MovieCard";
 import "../styles.css";
 
 const fetchData = async (url) => {
@@ -15,14 +16,17 @@ const fetchData = async (url) => {
 export default function MoviesGrid() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [page, setPage] = useState(1); // Track current page
+  const [searchTerm, setSearchTerm] = useState("");
+
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-
-  if (!API_KEY) {
-    console.error("API key is missing!");
-  }
-
-  const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
   const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+
+  if (!API_KEY) console.error("API key is missing!");
+
+  // Dynamic API URL based on the page
+  const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -32,41 +36,69 @@ export default function MoviesGrid() {
       if (movieData) setMovies(movieData.results || []);
     };
     fetchAllData();
-  }, [API_URL, GENRES_URL]);
+  }, [API_URL, GENRES_URL, page]); // Dependency on page for API call
 
-  const getFirstGenre = (genreIds) => {
-    if (genreIds.length > 0) {
-      const firstGenre = genres.find((genre) => genre.id === genreIds[0]);
-      return firstGenre ? firstGenre.name : "Unknown";
-    }
-    return "Unknown";
+  const handleCardClick = (movie) => {
+    setSelectedMovie((prevState) =>
+      prevState && prevState.id === movie.id ? null : movie
+    );
   };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1); // Go to next page
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) setPage((prevPage) => prevPage - 1); // Prevent going to page 0
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredMovies = movies.filter(movie => 
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      {movies.length === 0 ? (
-        <p className="error-message">Check API Key: Movies could not be loaded</p>
-      ) : (
-        <div className="movies-grid">
-          {movies.map((movie) => (
-            <div key={movie.id} className="movie-card">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <div className="movie-card-info">
-                <h3 className="movie-card-title">{movie.title}</h3>
-                <p className="movie-card-genre">
-                  {getFirstGenre(movie.genre_ids) || "Genre Not Found"}
-                </p>
-                <p className="movie-card-rating">
-                  {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
-                </p>
-              </div>
+      <input
+        type="text"
+        className="search-input"
+        placeholder="What do you want to watch?"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      <div>
+        {movies.length === 0 ? (
+          <p className="error-message">
+            Check API Key: Movies could not be loaded
+          </p>
+        ) : (
+          <>
+            <div className="movies-grid">
+              {filteredMovies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  genres={genres}
+                  isSelected={selectedMovie && selectedMovie.id === movie.id}
+                  onClick={handleCardClick}
+                />
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+
+            {/* Pagination controls */}
+            <div className="pagination">
+              <button onClick={handlePrevPage} disabled={page === 1}>
+                Previous
+              </button>
+              <span>Page {page}</span>
+              <button onClick={handleNextPage}>Next</button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,10 +1,10 @@
-# 🎬 Moviedux 🎬
+# 🎬 CineMaster 🎬
 
 *Built as part of the React 18 Course 2024 by Jannick Leismann on Udemy.*
 
-Welcome to **Moviedux** – This is a **movie browser app** where you can explore and watch movies right from your browser! 🎥🍿
+Welcome to **CineMaster** – This is a **movie browser app** where you can explore and watch movies right from your browser! 🎥🍿
 
-> **Note**: Moviedux was created as a first-time React project – so while it’s a fun ride, it’s not intended for production use. 🚧
+> **Note**: CineMaster was created as a first-time React project – so while it’s a fun ride, it’s not intended for production use. 🚧
 
 ## 🌟 Features
 
@@ -18,12 +18,12 @@ Prereq: Obtain an API Key From [TheMovieDB](https://www.themoviedb.org/settings/
 
 1. **Clone this repo**:
     ```bash
-    git clone https://github.com/JamShou/moviedux.git
+    git clone https://github.com/JamShou/cinemaster.git
     ```
 
 2. **Navigate to the project folder**:
     ```bash
-    cd moviedux
+    cd cinemaster
     ```
 
 3. **Install dependencies**:
@@ -35,7 +35,7 @@ Prereq: Obtain an API Key From [TheMovieDB](https://www.themoviedb.org/settings/
     ```bash
     npm start
     ```
-   Head to `http://localhost:3000` in your browser to explore Moviedux!
+   Head to `http://localhost:3000` in your browser to explore CineMaster!
 
 ## 🛠️ Technologies Used
 
@@ -61,4 +61,4 @@ MIT License.
 
 ---
 
-Thanks for checking out **Moviedux**! 🙌
+Thanks for checking out **CineMaster**! 🙌
