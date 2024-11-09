@@ -1,0 +1,136 @@
+/* Style for the expanded movie card */
+.movie-card.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Start small, centered */
+    width: 80vw; /* Adjust the width */
+    height: 45vw; /* Maintain a 16:9 aspect ratio */
+    max-width: 960px; /* Optional: max width for the expanded card */
+    max-height: 540px; /* Optional: max height for the expanded card */
+    z-index: 1;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    opacity: 0; /* Start as invisible */
+    animation: popIn 0.3s ease-out forwards; /* Animation to pop in */
+    overflow: hidden; /* Hide any overflow outside the card */
+  }
+  
+  /* Animation for the "pop-in" effect */
+  @keyframes popIn {
+    0% {
+      transform: translate(-50%, -50%) scale(0); /* Start small */
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1); /* Expand to full size */
+      opacity: 1;
+    }
+  }
+  
+  /* Overlay container for the overview text and button */
+  .expanded-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    font-size: 1.2rem; /* Adjust text size as needed */
+    line-height: 1.6;
+    text-align: center;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    z-index: 2; /* Ensure the content is above the backdrop */
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+  }
+  
+  .expanded-card-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+    z-index: -1; /* Ensure the backdrop is behind the content */
+  }
+  
+  .expanded-card-overlay h2 {
+    margin-top: 5px;
+    margin-bottom: 10px; /* Adds space between title and overview */
+  }
+  
+  .expanded-card-overlay p {
+    display: flex;
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    max-width: 80%; /* Optional: limits the width of the overview */
+    margin: 0 auto; /* Centers the overview text */
+    text-align: center; /* Ensures text is centered */
+    height: 100%; /* Ensures the paragraph takes up the full height */
+  }
+  
+  /* Container to align buttons side-by-side */
+  .button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow wrapping if the screen is too small */
+    justify-content: center; /* Center buttons horizontally */
+  }
+  
+  /* Trailer Button Base Styles */
+  .trailer-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    min-width: 180px; /* Ensure buttons have enough width */
+  }
+  
+  /* Button for YouTube */
+  .trailer-button.youtube {
+    background-color: #FF0000; /* YouTube Red */
+    color: black;
+  }
+  
+  .trailer-button.youtube:hover {
+    background-color: #cc0000; /* Darker Red */
+  }
+  
+  /* Button for Amazon */
+  .trailer-button.amazon {
+    background-color: #FF9900; /* Amazon Yellow */
+    color: black;
+  }
+  
+  .trailer-button.amazon:hover {
+    background-color: #e68a00; /* Darker Yellow */
+  }
+  
+  /* Button for Google Play Store */
+  .trailer-button.google {
+    background-color: #34A853; /* Google Play Green */
+    color: black;
+  }
+  
+  .trailer-button.google:hover {
+    background-color: #2c8e42; /* Darker Green */
+  }

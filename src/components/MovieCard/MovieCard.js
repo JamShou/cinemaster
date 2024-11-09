@@ -1,6 +1,7 @@
 // MovieCard.js
 import React from "react";
-import ExpandedCard from "./ExpandedCard"; 
+import ExpandedCard from "../ExpandedCard/ExpandedCard";
+import ".//MovieCard.css"
 
 const getGenreName = (genreIds, genres) => {
   if (genreIds.length > 0) {
@@ -29,7 +30,8 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
           {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
         </p>
       </div>
-      {isSelected && <ExpandedCard movie={movie} />} {/* Render ExpandedCard here */}
+      {isSelected && <ExpandedCard movie={movie} />}{" "}
+      {/* Render ExpandedCard here */}
     </div>
   );
 }
