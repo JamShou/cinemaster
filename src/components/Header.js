@@ -9,7 +9,7 @@ export default function Header() {
     <div className="header">
       <img className="logo" src={logo} alt="cinemaster " />
       <h2 className="app-subtitle">
-        It's time for popcorn! Find your next movie here!
+        It's time for popcorn! Come and find your next movie here!
       </h2>
     </div>
   );
