@@ -11,6 +11,18 @@ const getGenreName = (genreIds, genres) => {
   return "Unknown";
 };
 
+const getRatingClass = (rating) => {
+  if(rating >= 8){
+    return 'rating-good';
+  }
+  else if (rating>=6){
+    return 'rating-ok';
+  }
+  else{
+    return 'rating-bad';
+  }
+};
+
 export default function MovieCard({ movie, genres, isSelected, onClick }) {
   return (
     <div
@@ -26,7 +38,7 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
         <p className="movie-card-genre">
           {getGenreName(movie.genre_ids, genres) || "Genre Not Found"}
         </p>
-        <p className="movie-card-rating">
+        <p className={`movie-card-rating ${getRatingClass(movie.vote_average)}`}>
           {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
         </p>
       </div>

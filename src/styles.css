@@ -93,18 +93,6 @@ body {
   font-size: 0.9rem;
 }
 
-.rating-good {
-  color: rgb(148, 255, 105);
-}
-
-.rating-ok {
-  color: rgb(255, 209, 123);
-}
-
-.rating-bad {
-  color: rgb(255, 123, 123);
-}
-
 .title {
   text-align: center;
   margin: 25px 0;
