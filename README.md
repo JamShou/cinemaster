@@ -10,8 +10,8 @@ Welcome to **CineMaster** – This is a **movie browser app** where you can expl
 
 ## 🌟 Features
 
-- **Browse Movies** – Find something new to watch, with easy navigation! 🎞️
-- **Movie Details** – Click on a movie to see more details about it. 🕵️‍♀️
+- **Browse Movies** – Find something new to watch, with easy navigation to the store orof your choice! 🎞️
+- **Movie Details** – Click on a movie to see more details, trailers, store links about it. 🕵️‍♀️
 - **Responsive Design** – Works on desktop and mobile browsers! 📱💻
 
 ## 🚀 Getting Started
