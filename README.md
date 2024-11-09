@@ -6,10 +6,12 @@ Welcome to **CineMaster** – This is a **movie browser app** where you can expl
 
 > **Note**: CineMaster was created as a first-time React project – so while it’s a fun ride, it’s not intended for production use. 🚧
 
+![alt text](readme.png)
+
 ## 🌟 Features
 
-- **Browse Movies** – Find something new to watch, with easy navigation! 🎞️
-- **Movie Details** – Click on a movie to see more details about it. 🕵️‍♀️
+- **Browse Movies** – Find something new to watch, with easy navigation to the store orof your choice! 🎞️
+- **Movie Details** – Click on a movie to see more details, trailers, store links about it. 🕵️‍♀️
 - **Responsive Design** – Works on desktop and mobile browsers! 📱💻
 
 ## 🚀 Getting Started
