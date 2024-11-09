@@ -6,7 +6,7 @@ Welcome to **CineMaster** – This is a **movie browser app** where you can expl
 
 > **Note**: CineMaster was created as a first-time React project – so while it’s a fun ride, it’s not intended for production use. 🚧
 
-![alt text](public\images\readme.png)
+![alt text](readme.png)
 
 ## 🌟 Features
 
