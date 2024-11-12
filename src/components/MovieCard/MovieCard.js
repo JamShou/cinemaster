@@ -3,10 +3,13 @@ import React from "react";
 import ExpandedCard from "../ExpandedCard/ExpandedCard";
 import ".//MovieCard.css"
 
-const getGenreName = (genreIds, genres) => {
+const getGenreNames = (genreIds, genres) => {
   if (genreIds.length > 0) {
-    const genre = genres.find((genre) => genre.id === genreIds[0]);
-    return genre ? genre.name : "Unknown";
+    const genreNames = genreIds
+      .map((id) => genres.find((genre) => genre.id === id))
+      .filter((genre) => genre) // Filter out any null or undefined results
+      .map((genre) => genre.name);
+    return genreNames.length > 0 ? genreNames.join(", ") : "Unknown";
   }
   return "Unknown";
 };
@@ -36,7 +39,7 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
       <div className="movie-card-info">
         <h3 className="movie-card-title">{movie.title}</h3>
         <p className="movie-card-genre">
-          {getGenreName(movie.genre_ids, genres) || "Genre Not Found"}
+          {getGenreNames(movie.genre_ids, genres) || "Genre Not Found"}
         </p>
         <p className={`movie-card-rating ${getRatingClass(movie.vote_average)}`}>
           {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}

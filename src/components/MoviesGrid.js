@@ -28,6 +28,9 @@ export default function MoviesGrid() {
   // Dynamic API URL based on the page
   const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
 
+  const [genre, setGenre] = useState("All Genres");
+  const [rating, setRating] = useState("All");
+
   useEffect(() => {
     const fetchAllData = async () => {
       const genreData = await fetchData(GENRES_URL);
@@ -56,8 +59,54 @@ export default function MoviesGrid() {
     setSearchTerm(e.target.value);
   };
 
-  const filteredMovies = movies.filter(movie => 
-    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const handleGenreChange = (e) => {
+    setGenre(e.target.value);
+  };
+
+  const handleRatingChange = (e) => {
+    setRating(e.target.value);
+  };
+
+  const genreMap = genres.reduce((map, g) => {
+    map[g.name.toLowerCase()] = g.id;
+    return map;
+  }, {});
+
+  const matchesGenre = (movie, genre) => {
+    if (genre === "All Genres") return true;
+
+    const genreId = genreMap[genre.toLowerCase()];
+    return genreId && movie.genre_ids.includes(genreId);
+  };
+
+  const matchesRating = (movie, rating) => {
+    switch (rating) {
+      case "All":
+        return true;
+
+      case "Good":
+        return movie.vote_average >= 8;
+
+      case "Ok":
+        return movie.vote_average >= 6 && movie.vote_average < 8;
+
+      case "Bad":
+        return movie.vote_average < 6;
+
+      default:
+        return false;
+    }
+  };
+
+  const matchesSearchTerm = (movie, genre) => {
+    return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+  };
+
+  const filteredMovies = movies.filter(
+    (movie) =>
+      matchesSearchTerm(movie, searchTerm) &&
+      matchesGenre(movie, genre) &&
+      matchesRating(movie, rating)
   );
 
   return (
@@ -76,6 +125,36 @@ export default function MoviesGrid() {
           </p>
         ) : (
           <>
+            <div className="filter-bar">
+              <div className="filter-slot">
+                <label>Genre</label>
+                <select
+                  className="filter-dropdown"
+                  value={genre}
+                  onChange={handleGenreChange}
+                >
+                  <option value="All Genres">All Genres</option>
+                  {genres.map((genre) => (
+                    <option key={genre.id} value={genre.name}>
+                      {genre.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="filter-slot">
+                <label>Rating</label>
+                <select
+                  className="filter-dropdown"
+                  value={rating}
+                  onChange={handleRatingChange}
+                >
+                  <option>All</option>
+                  <option>Good</option>
+                  <option>Ok</option>
+                  <option>Bad</option>
+                </select>
+              </div>
+            </div>
             <div className="movies-grid">
               {filteredMovies.map((movie) => (
                 <MovieCard
