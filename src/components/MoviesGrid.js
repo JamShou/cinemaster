@@ -148,7 +148,7 @@ export default function MoviesGrid() {
                   value={rating}
                   onChange={handleRatingChange}
                 >
-                  <option>All</option>
+                  <option>All Rating</option>
                   <option>Good</option>
                   <option>Ok</option>
                   <option>Bad</option>
