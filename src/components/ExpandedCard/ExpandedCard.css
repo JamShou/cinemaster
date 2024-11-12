@@ -60,7 +60,7 @@
     bottom: 0;
     background-size: cover;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+    background-color: rgba(0, 0, 0, 0.45); /* Darker overlay */
     z-index: -1; /* Ensure the backdrop is behind the content */
   }
   
@@ -82,7 +82,7 @@
   /* Container to align buttons side-by-side */
   .button-container {
     display: flex;
-    gap: 10px; /* Space between buttons */
+    gap: 25px; /* Space between buttons */
     flex-wrap: wrap; /* Allow wrapping if the screen is too small */
     justify-content: center; /* Center buttons horizontally */
   }
