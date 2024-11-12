@@ -1,7 +1,7 @@
 // MovieCard.js
 import React from "react";
 import ExpandedCard from "../ExpandedCard/ExpandedCard";
-import ".//MovieCard.css"
+import ".//MovieCard.css";
 
 const getGenreNames = (genreIds, genres) => {
   if (genreIds.length > 0) {
@@ -15,18 +15,23 @@ const getGenreNames = (genreIds, genres) => {
 };
 
 const getRatingClass = (rating) => {
-  if(rating >= 8){
-    return 'rating-good';
-  }
-  else if (rating>=6){
-    return 'rating-ok';
-  }
-  else{
-    return 'rating-bad';
+  if (rating >= 8) {
+    return "rating-good";
+  } else if (rating >= 6) {
+    return "rating-ok";
+  } else {
+    return "rating-bad";
   }
 };
 
-export default function MovieCard({ movie, genres, isSelected, onClick }) {
+export default function MovieCard({
+  movie,
+  genres,
+  isSelected,
+  onClick,
+  isWatchlisted,
+  toggleWatchlist,
+}) {
   return (
     <div
       className={`movie-card ${isSelected ? "expanded" : ""}`}
@@ -41,9 +46,25 @@ export default function MovieCard({ movie, genres, isSelected, onClick }) {
         <p className="movie-card-genre">
           {getGenreNames(movie.genre_ids, genres) || "Genre Not Found"}
         </p>
-        <p className={`movie-card-rating ${getRatingClass(movie.vote_average)}`}>
+      </div>
+      <div>
+        <p
+          className={`movie-card-rating ${getRatingClass(movie.vote_average)}`}
+        >
           {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
         </p>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={isWatchlisted}
+            onChange={() => toggleWatchlist(movie.id)}
+          ></input>
+          <span className="slider">
+            <span className="slider-label">
+              {isWatchlisted ? "In Watchlist" : "Add to Watchlist"}
+            </span>
+          </span>
+        </label>
       </div>
       {isSelected && <ExpandedCard movie={movie} />}{" "}
       {/* Render ExpandedCard here */}

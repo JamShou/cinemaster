@@ -22,15 +22,14 @@ function App() {
   const [page, setPage] = useState(1); // Track current page
 
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-  const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
-
   if (!API_KEY) console.error("API key is missing!");
 
-  // Dynamic API URL based on the page
+  const GENRES_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
   const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -45,6 +44,14 @@ function App() {
     };
     fetchAllData();
   }, [API_URL, GENRES_URL, page]);
+
+  const toggleWatchlist = (movieId) => {
+    setWatchlist((prev) =>
+      prev.includes(movieId)
+        ? prev.filter((id) => id !== movieId)
+        : [...prev, movieId]
+    );
+  };
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1); // Go to next page
@@ -78,9 +85,26 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<MoviesGrid movies={movies} genres={genres} />}
+                element={
+                  <MoviesGrid
+                    movies={movies}
+                    genres={genres}
+                    watchlist={watchlist}
+                    toggleWatchlist={toggleWatchlist}
+                  />
+                }
               />
-              <Route path="/watchlist" element={<Watchlist />} />
+              <Route
+                path="/watchlist"
+                element={
+                  <Watchlist
+                    movies={movies}
+                    watchlist={watchlist}
+                    genres={genres}
+                    toggleWatchlist={toggleWatchlist}
+                  />
+                }
+              />
             </Routes>
           )}
         </Router>

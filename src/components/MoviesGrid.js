@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import MovieCard from "./MovieCard/MovieCard";
 import "../styles.css";
 
-export default function MoviesGrid({ movies, genres }) {
+export default function MoviesGrid({
+  movies,
+  genres,
+  watchlist,
+  toggleWatchlist,
+}) {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -117,6 +122,8 @@ export default function MoviesGrid({ movies, genres }) {
               genres={genres}
               isSelected={selectedMovie && selectedMovie.id === movie.id}
               onClick={handleCardClick}
+              isWatchlisted={watchlist.includes(movie.id)}
+              toggleWatchlist={toggleWatchlist}
             />
           ))}
         </div>

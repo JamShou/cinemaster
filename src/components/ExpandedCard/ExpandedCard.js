@@ -1,5 +1,5 @@
 import React from "react";
-import ".//ExpandedCard.css"
+import ".//ExpandedCard.css";
 
 export default function ExpandedCard({ movie }) {
   return (
